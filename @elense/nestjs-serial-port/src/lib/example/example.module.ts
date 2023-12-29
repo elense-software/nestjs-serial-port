@@ -11,7 +11,7 @@ import {PinValueChangedHardwareMessageHandler} from "./event-handlers/pin-value-
     }),
     NestjsSerialPortModule.register({
       baudRate: 250000,
-      deviceInfo: {vendorId: '1a86', productId: '7523'}, // Original Arduino: {vendorId: '2341', productId: '0043'};
+      deviceInfo: {devicePath: '/dev/tty.usbserial-1410'}, // Original Arduino: {vendorId: '2341', productId: '0043'};
       targetDeviceSerialPortBufferSize: 64,
       hardwareMessages: [
         PinValueChangedHardwareMessage
