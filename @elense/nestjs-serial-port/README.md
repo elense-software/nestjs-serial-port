@@ -1,5 +1,8 @@
 # nestjs-serial-port
 
+# Announcement:
+- The package is relatively new, it's still developed. 
+
 # Overview
 This library is a NestJS wrapper around [serialport](https://serialport.io/) library.
 Messages received from device are emitted as NestJS events. 
