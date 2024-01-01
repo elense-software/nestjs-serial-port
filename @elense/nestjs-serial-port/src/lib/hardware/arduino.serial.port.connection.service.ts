@@ -66,6 +66,8 @@ export class ArduinoSerialPortConnectionService implements SerialPortConnectionS
   async connect(): Promise<void> {
     let path: string = await this.getDevicePath();
 
+    await this.sleep(3000)
+
     this.readline = this.listener.listen(path, this.config.baudRate)
 
     this.readline.port.on('error', (err: Error) => {

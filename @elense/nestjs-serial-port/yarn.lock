@@ -85,7 +85,7 @@
     "@serialport/bindings-interface" "^1.2.1"
     debug "^4.3.3"
 
-"@serialport/bindings-cpp@12.0.1":
+"@serialport/bindings-cpp@12.0.1", "@serialport/bindings-cpp@^12.0.0":
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/@serialport/bindings-cpp/-/bindings-cpp-12.0.1.tgz#b7588a8b3e124e7679622ce980a7d8528e9f36a3"
   integrity sha512-r2XOwY2dDvbW7dKqSPIk2gzsr6M6Qpe9+/Ngs94fNaNlcTRCV02PfaoDmRgcubpNVVcLATlxSxPTIDw12dbKOg==

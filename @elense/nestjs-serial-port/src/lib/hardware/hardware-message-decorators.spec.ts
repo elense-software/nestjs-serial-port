@@ -1,5 +1,4 @@
 import {HardwareMessage} from "./hardware-message-decorators";
-import {DefaultAppMessage} from "./app-message";
 import {SerialPortFormattedMessage} from "./serial-port-formatted-message";
 
 export const APP_EVENT_NAME_PROP = 'appEventName'
