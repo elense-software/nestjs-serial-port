@@ -7,10 +7,16 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["jest", "node"]
   },
   "files": [],
-  "include": [],
+  "include": [
+    "jest.config.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"
@@ -18,5 +24,6 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+
 }
