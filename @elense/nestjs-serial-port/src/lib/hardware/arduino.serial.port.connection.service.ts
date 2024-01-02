@@ -130,18 +130,19 @@ export class ArduinoSerialPortConnectionService implements SerialPortConnectionS
           Logger.log(`Exchanging handshake...`)
 
           this.write({data: ["A"], name: "_bootstrap"}).then(() => Logger.log(`Handshake exchanged!`));
+        } else {
+          const fromHardwareMessage: any =
+            this.config.hardwareMessages.find((hardwareMessage: any) => hardwareMessage.hardwareEventName! === message!.appMessage.name)
+
+          if(!fromHardwareMessage) {
+            throw new Error(`No hardware message found for message: ${JSON.stringify(message)}. Please check your configuration!`)
+          }
+
+          const eventInstance: any = fromHardwareMessage["create"](message)
+
+          this.eventEmitter.emit(`${fromHardwareMessage.appEventName}`, eventInstance)
         }
 
-        const fromHardwareMessage: any =
-          this.config.hardwareMessages.find((hardwareMessage: any) => hardwareMessage.hardwareEventName! === message!.appMessage.name)
-
-        if(!fromHardwareMessage) {
-          throw new Error(`No hardware message found for message: ${JSON.stringify(message)}. Please check your configuration!`)
-        }
-
-        const eventInstance: any = fromHardwareMessage["create"](message)
-
-        this.eventEmitter.emit(`${fromHardwareMessage.appEventName}`, eventInstance)
       } catch (e) {
         Logger.error(e)
         Logger.error(message)

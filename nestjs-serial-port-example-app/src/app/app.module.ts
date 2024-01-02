@@ -17,7 +17,7 @@ import {
       }),
       NestjsSerialPortModule.register({
         baudRate: 9600,
-        deviceInfo: {devicePath: '/dev/ttys011'}, // Original Arduino: {vendorId: '2341', productId: '0043'};
+        deviceInfo: {vendorId: '1a86', productId: '7523'}, // Original Arduino: {vendorId: '2341', productId: '0043'};
         targetDeviceSerialPortBufferSize: 64,
         hardwareMessages: [
           PinValueChangedHardwareMessage
