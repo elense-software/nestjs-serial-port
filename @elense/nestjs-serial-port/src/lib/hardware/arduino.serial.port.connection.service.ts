@@ -2,7 +2,6 @@ import {SerialPortListenerService} from "./serial-port-listener.service";
 import {PortInfo} from "@serialport/bindings-interface";
 import {Injectable, Logger} from "@nestjs/common";
 import {ReadlineParser} from "@serialport/parser-readline";
-import {SerialPort} from "serialport";
 import {EventEmitter2} from "@nestjs/event-emitter";
 import {SerialPortConnectionService} from "./serial-port-connection-service";
 import {AppMessage} from "./app-message";
@@ -10,10 +9,6 @@ import {InjectSerialPortConfig} from "../inject-serial-port.config";
 import {MessageMapper} from "./message-mapper";
 import {SerialPortFormattedMessage} from "./serial-port-formatted-message";
 import {DeviceInfo, DevicePath, NestjsSerialPortModuleConfiguration} from "../nestjs-serial-port-module.configuration";
-import {
-  _UnrecognizedHardwareDashboardReceivedEvent,
-  UnrecognizedHardwareDashboardEventPayload
-} from "../events/_unrecognized-hardware-dashboard-received-event";
 import {SerialPortStream} from "@serialport/stream";
 
 
@@ -131,6 +126,12 @@ export class ArduinoSerialPortConnectionService implements SerialPortConnectionS
       try {
         message = this.messageMapper.fromRawString(value)
 
+        if(message.appMessage.name === "_bootstrap") {
+          Logger.log(`Exchanging handshake...`)
+
+          this.write({data: ["A"], name: "_bootstrap"}).then(() => Logger.log(`Handshake exchanged!`));
+        }
+
         const fromHardwareMessage: any =
           this.config.hardwareMessages.find((hardwareMessage: any) => hardwareMessage.hardwareEventName! === message!.appMessage.name)
 
@@ -143,11 +144,7 @@ export class ArduinoSerialPortConnectionService implements SerialPortConnectionS
         this.eventEmitter.emit(`${fromHardwareMessage.appEventName}`, eventInstance)
       } catch (e) {
         Logger.error(e)
-        Logger.error(JSON.stringify(message))
-
-        this.eventEmitter.emit(_UnrecognizedHardwareDashboardReceivedEvent.appEventName,
-          new _UnrecognizedHardwareDashboardReceivedEvent(new UnrecognizedHardwareDashboardEventPayload(value, e))
-        )
+        Logger.error(message)
       }
     })
   }

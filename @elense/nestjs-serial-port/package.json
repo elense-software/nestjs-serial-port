@@ -9,7 +9,7 @@
     "url": "https://github.com/elense-software/nestjs-serial-port.git",
     "directory": "@elense/nestjs-serial-port"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {
     "serialport": "^12.0.0",
     "@serialport/bindings-cpp": "^12.0.0",
